@@ -1,0 +1,118 @@
+/* ==========================================================
+   M4X — style.css  (mobile-first)
+   Paleta tirada das referências: preto profundo, verde de
+   fósforo (HUD), vermelho dos olhos, lilás de neve, azul gelo.
+   ========================================================== */
+:root{
+  --bg:#050607; --bg2:#0b0d10; --ink:#e9ecf1; --dim:#8b93a1;
+  --green:#3dff8f; --green-d:#1f7a47;
+  --red:#ff1f33; --ice:#b9c6ff; --mauve:#b9a3b8;
+  --line:rgba(61,255,143,.45);
+  --f-display:"DotGothic16","MS Gothic",monospace;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--f-body);min-height:100dvh;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+[hidden]{display:none!important}
+img{display:block;max-width:100%}
+a{color:var(--green)}
+:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+
+/* Textura de monitor antigo sobre tudo */
+.crt{position:fixed;inset:0;pointer-events:none;z-index:50;opacity:.35;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.45) 0 1px,transparent 1px 3px)}
+
+#app{width:100%;max-width:440px;margin:0 auto;padding:20px 18px 40px}
+.view--wide{max-width:none}
+.view{animation:in .35s ease both}
+@keyframes in{from{opacity:0}to{opacity:1}}
+
+/* ---------- Marca e títulos ---------- */
+.brand{font:400 clamp(64px,22vw,96px)/1 var(--f-display);text-align:center;letter-spacing:.08em;
+  color:var(--green);text-shadow:0 0 18px rgba(61,255,143,.55);margin:18px 0 22px}
+.brand--sm{font-size:28px;margin:0;text-align:left}
+.title{font:400 32px/1.1 var(--f-display);margin:18px 0 18px;color:var(--ice)}
+
+/* ---------- Molduras HUD (imagens de referência) ---------- */
+.hud{position:relative;border:1px solid var(--line);background:#000;overflow:hidden}
+.hud::before,.hud::after{content:"";position:absolute;width:14px;height:14px;z-index:2;border:2px solid var(--green)}
+.hud::before{top:6px;left:6px;border-right:0;border-bottom:0}
+.hud::after{bottom:6px;right:6px;border-left:0;border-top:0}
+.hud img{width:100%;object-fit:cover;image-rendering:pixelated}
+.hud--eye img{aspect-ratio:16/9;filter:saturate(.9) contrast(1.05)}
+.hud--demon img{aspect-ratio:4/3;object-position:50% 40%}
+.hud--skull img,.hud--angel img{aspect-ratio:4/3;object-position:50% 30%}
+.hud figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;
+  background:linear-gradient(transparent,rgba(0,0,0,.88))}
+.hud figcaption h1{font:400 28px/1.1 var(--f-display)}
+.hud figcaption p{color:var(--dim);font-size:14px}
+.hud--demon{border-color:rgba(255,31,51,.5)}
+.hud--demon::before,.hud--demon::after{border-color:var(--red)}
+.hud--skull{border-color:rgba(255,255,255,.35)}
+.hud--angel{border-color:rgba(185,198,255,.5)}
+
+/* Leitura do olho: linha que varre a grade (único movimento autônomo) */
+.scan{position:absolute;left:0;right:0;height:2px;top:0;z-index:1;background:var(--green);
+  box-shadow:0 0 14px var(--green);animation:scan 3.2s linear infinite}
+@keyframes scan{from{top:0}to{top:100%}}
+.hud__data{position:absolute;left:10px;bottom:8px;z-index:2;font:12px/1.5 var(--f-display);
+  color:var(--green);background:none;padding:0;text-shadow:0 0 6px #000}
+
+/* ---------- Formulário ---------- */
+.panel{display:flex;flex-direction:column;gap:14px;border:1px solid var(--line);
+  background:rgba(11,13,16,.88);padding:18px}
+label{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--dim)}
+input[type=email],input[type=text],input[type=password]{width:100%;min-height:48px;padding:0 12px;
+  background:#000;color:var(--ink);border:1px solid var(--green-d);border-radius:0;font:16px var(--f-body)}
+input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(61,255,143,.15);outline:none}
+input[aria-invalid=true]{border-color:var(--red)}
+.pw{position:relative;display:block}
+.pw input{padding-right:64px}
+.pw__toggle{position:absolute;right:0;top:0;height:100%;width:56px;background:none;border:0;
+  color:var(--green);font:14px var(--f-display);cursor:pointer}
+.check{flex-direction:row;align-items:center;gap:10px;color:var(--ink)}
+.check input{width:20px;height:20px;accent-color:var(--green)}
+.note{font-size:13px;color:var(--dim)}
+.msg{min-height:20px;font-size:14px;color:var(--red)}
+.msg.is-info{color:var(--ice)}
+
+.btn{min-height:50px;border:1px solid var(--green);background:var(--green);color:#021008;
+  font:18px var(--f-display);letter-spacing:.06em;cursor:pointer;transition:box-shadow .2s,transform .1s}
+.btn:hover{box-shadow:0 0 18px rgba(61,255,143,.5)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.btn--ghost{background:transparent;color:var(--green)}
+.links{display:flex;justify-content:space-between;gap:12px;font-size:14px}
+
+/* ---------- Painéis ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.menu{display:flex;gap:4px;overflow-x:auto}
+.menu a{padding:10px 12px;text-decoration:none;color:var(--dim);font:15px var(--f-display);white-space:nowrap;border-bottom:2px solid transparent}
+.menu a[aria-current=page]{color:var(--green);border-color:var(--green)}
+.cards{display:grid;gap:14px;margin-top:16px}
+.card{border:1px solid var(--line);background:var(--bg2);padding:16px;margin-top:14px}
+.cards .card{margin-top:0}
+.card h2{font:400 20px var(--f-display);color:var(--ice);margin-bottom:10px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+dt{color:var(--dim)} dd{overflow-wrap:anywhere}
+.empty{color:var(--dim);font-size:14px}
+.stat{margin-top:14px;border:1px solid rgba(255,255,255,.35);padding:16px;display:flex;justify-content:space-between;align-items:baseline}
+.stat span{color:var(--dim)} .stat strong{font:400 44px var(--f-display);color:#fff;text-shadow:0 0 14px rgba(255,255,255,.5)}
+.users{list-style:none;padding:0;display:grid;gap:8px}
+.users li{display:grid;gap:2px;padding:10px 0;border-bottom:1px solid #1a1f26;font-size:14px}
+.users small{color:var(--dim)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+
+/* ---------- Telas maiores ---------- */
+@media (min-width:720px){
+  #app{padding-top:40px}
+  .view[data-view=login],.view[data-view=cadastro],.view[data-view=recuperar]{max-width:440px;margin:0 auto}
+  .view--wide{max-width:980px;margin:0 auto}
+  .cards{grid-template-columns:repeat(3,1fr)}
+  .hud--angel img,.hud--skull img{aspect-ratio:21/9}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}

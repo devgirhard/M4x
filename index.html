@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050607">
+  <title>M4X</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+
+<main id="app">
+
+  <!-- ============ LOGIN ============ -->
+  <section class="view" data-view="login" aria-labelledby="t-login">
+    <figure class="hud hud--eye">
+      <img src="images/olho-hud.jpg" alt="Olho digital com grade de leitura biométrica">
+      <span class="scan" aria-hidden="true"></span>
+      <figcaption class="hud__data" aria-hidden="true">
+        ID&gt;--------<br>DOB&gt;--/--/----<br>Class&gt; -<br>Status: aguardando acesso
+      </figcaption>
+    </figure>
+    <h1 id="t-login" class="brand">M4X</h1>
+    <form class="panel" data-form="login" novalidate>
+      <label>E-mail
+        <input type="email" name="email" autocomplete="email" inputmode="email" required>
+      </label>
+      <label>Senha
+        <span class="pw"><input type="password" name="password" autocomplete="current-password" required minlength="8">
+        <button type="button" class="pw__toggle" aria-label="Mostrar senha">ver</button></span>
+      </label>
+      <p class="msg" role="status" aria-live="polite"></p>
+      <button class="btn" type="submit">Entrar</button>
+      <nav class="links"><a href="#cadastro">Criar conta</a><a href="#recuperar">Recuperar senha</a></nav>
+    </form>
+  </section>
+
+  <!-- ============ CADASTRO ============ -->
+  <section class="view" data-view="cadastro" aria-labelledby="t-cad" hidden>
+    <figure class="hud hud--demon"><img src="images/demonio.jpg" alt="Silhueta de um demônio com asas e espada na neve"></figure>
+    <h1 id="t-cad" class="title">Criar conta</h1>
+    <form class="panel" data-form="cadastro" novalidate>
+      <label>Nome<input type="text" name="name" autocomplete="name" required></label>
+      <label>E-mail<input type="email" name="email" autocomplete="email" inputmode="email" required></label>
+      <label>Senha
+        <span class="pw"><input type="password" name="password" autocomplete="new-password" required minlength="8">
+        <button type="button" class="pw__toggle" aria-label="Mostrar senha">ver</button></span>
+      </label>
+      <label>Confirmar senha<input type="password" name="confirm" autocomplete="new-password" required></label>
+      <p class="note">Usamos seu nome e e-mail apenas para criar e proteger sua conta. Sua senha nunca é compartilhada com ninguém.</p>
+      <label class="check"><input type="checkbox" name="privacy" required> Li e aceito o aviso de privacidade</label>
+      <p class="msg" role="status" aria-live="polite"></p>
+      <button class="btn" type="submit">Criar conta</button>
+      <nav class="links"><a href="#login">Já tenho conta</a></nav>
+    </form>
+  </section>
+
+  <!-- ============ RECUPERAR SENHA ============ -->
+  <section class="view" data-view="recuperar" aria-labelledby="t-rec" hidden>
+    <h1 id="t-rec" class="title">Recuperar senha</h1>
+    <form class="panel" data-form="recuperar" novalidate>
+      <p class="note">Informe o e-mail da conta. O link de redefinição será enviado pelo serviço de autenticação.</p>
+      <label>E-mail<input type="email" name="email" autocomplete="email" inputmode="email" required></label>
+      <p class="msg" role="status" aria-live="polite"></p>
+      <button class="btn" type="submit">Enviar link</button>
+      <nav class="links"><a href="#login">Voltar ao login</a></nav>
+    </form>
+  </section>
+
+  <!-- ============ PAINEL DO USUÁRIO ============ -->
+  <section class="view view--wide" data-view="painel" aria-labelledby="t-painel" hidden>
+    <header class="top">
+      <span class="brand brand--sm">M4X</span>
+      <nav class="menu" aria-label="Menu principal">
+        <a href="#painel" aria-current="page">Início</a><a href="#painel" data-soon>Perfil</a><a href="#admin">Admin</a><a href="#login" data-logout>Sair</a>
+      </nav>
+    </header>
+    <figure class="hud hud--angel">
+      <img src="images/anjo-digital.jpg" alt="Anjo digital pixelado com asas brancas e telas de monitoramento">
+      <figcaption>
+        <h1 id="t-painel" data-bind="greeting">Olá</h1>
+        <p data-bind="status">Conta aguardando conexão com o servidor</p>
+      </figcaption>
+    </figure>
+    <div class="cards">
+      <article class="card"><h2>Perfil</h2><dl>
+        <dt>Nome</dt><dd data-bind="name">—</dd><dt>E-mail</dt><dd data-bind="email">—</dd><dt>Membro desde</dt><dd data-bind="since">—</dd></dl></article>
+      <article class="card"><h2>Atividade</h2><p class="empty" data-slot="activity">Nenhum dado recebido ainda.</p></article>
+      <article class="card"><h2>Avisos</h2><p class="empty" data-slot="notices">Nenhum aviso por enquanto.</p></article>
+    </div>
+  </section>
+
+  <!-- ============ PAINEL ADMIN ============ -->
+  <section class="view view--wide" data-view="admin" aria-labelledby="t-admin" hidden>
+    <header class="top">
+      <span class="brand brand--sm">M4X</span>
+      <nav class="menu" aria-label="Menu administrativo">
+        <a href="#painel">Painel</a><a href="#admin" aria-current="page">Admin</a><a href="#login" data-logout>Sair</a>
+      </nav>
+    </header>
+    <figure class="hud hud--skull">
+      <img src="images/esqueleto.jpg" alt="Esqueleto com descargas elétricas ao redor do crânio">
+      <figcaption><h1 id="t-admin">Administração</h1></figcaption>
+    </figure>
+    <div class="stat"><span>Total de usuários</span><strong data-bind="total">—</strong></div>
+    <article class="card">
+      <h2>Usuários cadastrados</h2>
+      <ul class="users" id="user-list"></ul>
+      <p class="empty" id="user-empty">Nenhum usuário carregado. A lista aparece quando o backend estiver conectado.</p>
+    </article>
+    <article class="card">
+      <h2>Gerenciamento</h2>
+      <div class="actions">
+        <button class="btn btn--ghost" type="button" disabled>Suspender</button>
+        <button class="btn btn--ghost" type="button" disabled>Excluir</button>
+      </div>
+      <p class="note">Ações habilitadas após a integração com o banco de dados.</p>
+    </article>
+  </section>
+
+</main>
+<script src="script.js"></script>
+</body>
+</html>
